@@ -1,5 +1,5 @@
 const cardSymbols = ['🫵🏻', '🙌🏻', '👩🏻‍🦰', '👩🏻‍💻', '🙇🏻‍♀️', '🫶🏼', '👼🏽', '👆🏽', '🤌🏽', '💅🏽' ];
-let cards = [...cardSymbols, ...cardSymbols]; // Удваиваем символы для создания пар
+let cards = [...cardSymbols, ...cardSymbols]; 
 
 let moves = 0;
 let matchedPairs = 0;
@@ -14,7 +14,6 @@ const movesCounter = document.querySelector('.moves');
 const timerDisplay = document.querySelector('.timer');
 const winMessage = document.querySelector('.win');
 
-// Перемешиваем массив карточек
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -23,7 +22,6 @@ function shuffle(array) {
 }
 
 function startGame() {
-    // Сброс игры
     moves = 0;
     matchedPairs = 0;
     firstCard = null;
@@ -37,7 +35,6 @@ function startGame() {
     shuffle(cards);
     createBoard();
 
-    // Запускаем таймер
     timer = setInterval(() => {
         time++;
         timerDisplay.textContent = `Time: ${time} sec`;
@@ -45,7 +42,7 @@ function startGame() {
 }
 
 function createBoard() {
-    board.innerHTML = ''; // Очищаем доску
+    board.innerHTML = ''; 
     cards.forEach((symbol, index) => {
         const card = document.createElement('div');
         card.classList.add('card');
@@ -60,7 +57,6 @@ function flipCard(e) {
     if (isChecking) return;
     const clickedCard = e.target;
 
-    // Открываем карту
     clickedCard.classList.add('flipped');
     clickedCard.textContent = clickedCard.dataset.symbol;
 
@@ -78,7 +74,6 @@ function checkForMatch() {
     movesCounter.textContent = `${moves} moves`;
 
     if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
-        // Совпадение
         matchedPairs++;
         resetFlippedCards();
 
@@ -86,7 +81,6 @@ function checkForMatch() {
             gameOver();
         }
     } else {
-        // Нет совпадения
         setTimeout(() => {
             firstCard.classList.remove('flipped');
             secondCard.classList.remove('flipped');
@@ -109,3 +103,20 @@ function gameOver() {
 }
 
 document.querySelector('button').addEventListener('click', startGame);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('game-description');
+    const closeButton = document.getElementById('close-modal');
+    const startButton = document.getElementById('start-game');
+
+    modal.style.display = 'flex';
+
+    closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    startButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+});
+
